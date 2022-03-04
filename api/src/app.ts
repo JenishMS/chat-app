@@ -1,11 +1,14 @@
 import 'reflect-metadata'; // this shim is required
 import express from 'express';
 import {
-  createExpressServer, CurrentUser, useContainer, useExpressServer
+  Action,useContainer, useExpressServer
 } from 'routing-controllers';
 import Container from 'typedi';
 import path from 'path';
 import { AuthController } from './auth/controllers/auth.controller';
+import { UserController } from './user/controllers/user.controller';
+import { ChatController } from './chat/controllers/chat.controller';
+import { CurrentUserChecker } from './base/services/current-user.checker';
 
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -16,7 +19,8 @@ async function startServer() {
     const app = express();
     useExpressServer(app, {
       cors: false,
-      controllers: [AuthController],
+      authorizationChecker: CurrentUserChecker,
+      controllers: [AuthController, UserController, ChatController],
       defaults: {
         paramOptions: {
           required: true,
@@ -32,3 +36,7 @@ async function startServer() {
 }
 
 startServer();
+function getEntityManager() {
+  throw new Error('Function not implemented.');
+}
+

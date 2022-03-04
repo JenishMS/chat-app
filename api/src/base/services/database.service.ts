@@ -25,11 +25,11 @@ export abstract class DatabaseService {
      * @returns 
      */
     async getAll() {
-        return await this.collection.find();
+        return await this.collection.find({}).toArray();
     }
 
-    async getOne(id: string) {
-        return await this.collection.findOne({ _id: id }).toArray();
+    async getById(id: string) {
+        return await this.collection.findOne({ _id: id });
     }
 
 }
