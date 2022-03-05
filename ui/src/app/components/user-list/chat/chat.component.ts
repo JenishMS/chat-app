@@ -39,30 +39,15 @@ export class ChatComponent implements OnInit {
       this.socketId = this.socket.id;
         this.makeUserOnline();
 
-      // this.subscription.add(this.chatService.chatSubject$.subscribe((chatConfig: IChatConfig) => {
-      //   this.joinChatRoom(chatConfig);
-      // }));
-
-      // this.subscription.add(this.chatService.onOnline$.subscribe((b: boolean) => {
-      //   this.makeUserOnline();
-      // }));
-
-    //   this.socket.on('join_chat_room', (chatConfig: any) => {
-    //     const isCurrentChatIsSame = this.chatConfig && this.chatConfig.projectId === chatConfig.projectId;
-    // if (!isCurrentChatIsSame || !this.chatConfig) {
-    //   this.joinChatRoom(chatConfig);
-    //   setTimeout(() => {
-    //     this.notificationService.playNotificationSound();
-    //   });
-    // }
-    //   });
-
-      this.socket.on(SocketEnum.RECEIVE_MESSAGE, (data: any) => {
-        console.log(data, 'Message received');
-      });
-
-    //   this.socket.on(SocketEnum.message, (chat: Chat) => this.chatComponent.receivedMessage(chat));
-    //   this.socket.on(SocketEnum.joinRoomResponse, (chats: Chat[]) => this.chatComponent.pushChats(chats));
+        this.socket.on(SocketEnum.RECEIVE_MESSAGE, (data: any) => {
+          console.log(data, 'Message received');
+          if(data.userId) {
+              if(this.userId === data.userId) {
+                this.chats.push(data.data);
+              }
+          }
+          // this.chats.push(data);
+        });
     });    
   }
   

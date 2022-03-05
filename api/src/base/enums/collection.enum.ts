@@ -1,5 +1,6 @@
 export enum CollectionEnum {
     USER = 'user',
     CHAT = 'chat',
-    PASSWORD = 'password',	
+    PASSWORD = 'password',
+    ONLINE_USERS = 'online_users',
 }
