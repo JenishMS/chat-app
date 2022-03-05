@@ -4,6 +4,7 @@ import { BaseService } from "../../base/services/base.service";
 import { v4 as uuidv4 } from 'uuid';
 import { IChat } from "../interfaces/chat.interface";
 import { Authorized } from "routing-controllers";
+import { IUser } from "../../user/interface/user.interface";
 
 @Service()
 export class ChatService extends BaseService {
@@ -11,12 +12,23 @@ export class ChatService extends BaseService {
         super(CollectionEnum.CHAT);
     }
 
-    async getChat(userId: string) {
+    async getChat(userId: string, user: IUser) {
         try {
             let chats = await this.collection.find({
-                $or: [{
-                    from: userId
-                }, {to: userId}]
+                $or: [
+                    {
+                        to: userId
+                    },
+                    {
+                        from: user._id
+                    },
+                    {
+                        from: userId
+                    },
+                    {
+                        to: user._id
+                    }
+                ]
             }).toArray() ?? [];
             return this.success(chats, 'Success');
         } catch (err) {
@@ -24,11 +36,12 @@ export class ChatService extends BaseService {
         }
     }
     
-    async send(data: Partial<IChat>) {
+    async send(data: Partial<IChat>, user: IUser) {
         try {
-            let response = await this.create({...data,_id: uuidv4(), createdAt: new Date()});
+            let response: any = await this.create({...data,_id: uuidv4(), createdAt: new Date(), from: user._id});
             if(response) {
-                return this.success({}, 'Success');
+                let chat = await this.getById(response.insertedId);              
+                return this.success(chat, 'Success');
             }
             return this.error('Failed to send message');
         } catch (err) {

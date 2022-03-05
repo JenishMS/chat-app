@@ -1,0 +1,33 @@
+.message-container {
+    .text-right {
+        text-align: right;
+    }
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    .chat-row {
+        display: inline-flex;
+        span {
+            padding: 0.2rem 0.5rem !important;
+            border-radius: 0.2rem;
+            color: #fff;
+            margin-top: 0.5rem;
+            max-width: 80%;
+        }
+        &.to {
+            justify-content: flex-start;
+            span{
+                background-color: rgb(204 204 204 / 92%);
+                color: #181717;
+            } }
+            &.from{ 
+                justify-content: flex-end;
+                span{
+                background-color: #0d6efd;
+                color: #fff;
+            }
+        }
+    }
+}

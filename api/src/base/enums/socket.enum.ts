@@ -1,0 +1,6 @@
+export enum SocketEnum {
+    I_AM_ONLINE = 'I_AM_ONLINE',
+    I_AM_OFFLINE = 'I_AM_ONLINE',
+    SEND_MESSAGE = 'SEND_MESSAGE',
+    RECEIVE_MESSAGE = 'RECEIVE_MESSAGE',
+}

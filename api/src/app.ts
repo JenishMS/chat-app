@@ -8,7 +8,9 @@ import path from 'path';
 import { AuthController } from './auth/controllers/auth.controller';
 import { UserController } from './user/controllers/user.controller';
 import { ChatController } from './chat/controllers/chat.controller';
+import { AuthUserChecker } from './base/services/auth-user.checker';
 import { CurrentUserChecker } from './base/services/current-user.checker';
+import { chatEngine } from './base/services/chat-engine';
 
 const bodyParser = require('body-parser');
 require('dotenv').config();
@@ -18,10 +20,14 @@ async function startServer() {
     useContainer(Container);
     const app = express();
     useExpressServer(app, {
-      cors: false,
-      authorizationChecker: CurrentUserChecker,
+      validation: true,
+      cors: true,
+      authorizationChecker: AuthUserChecker,
+      currentUserChecker: CurrentUserChecker,
       controllers: [AuthController, UserController, ChatController],
       defaults: {
+        nullResultCode: 404,
+        undefinedResultCode: 204,
         paramOptions: {
           required: true,
         }
@@ -34,9 +40,8 @@ async function startServer() {
       console.log(`Listening on port ${port}`);
     })
 }
-
+// Start Server
 startServer();
-function getEntityManager() {
-  throw new Error('Function not implemented.');
-}
+// Start Chat Server
+chatEngine();
 

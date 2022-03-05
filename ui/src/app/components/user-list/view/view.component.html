@@ -1,0 +1,31 @@
+<div class="container">
+    <h4>User Details</h4>
+    <div class="loading" *ngIf="isLoading">Loading...</div>
+    <ng-container *ngIf="user">
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <label>Name</label>
+            </div>
+            <div class="col-md-6">
+                <p>{{user.name}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Email</label>
+            </div>
+            <div class="col-md-6">
+                <p>{{user.email}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label>DOB</label>
+            </div>
+            <div class="col-md-6">
+                <p>{{user.dob}}</p>
+            </div>
+        </div>
+    </ng-container>
+
+</div>

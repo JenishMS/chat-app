@@ -8,10 +8,12 @@
     "start": "cross-env-file -p ./.env.dev.json ts-node-dev --respawn src/app.ts"
   },
   "dependencies": {
+    "@types/socket.io-client": "^3.0.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
@@ -19,6 +21,8 @@
     "multer": "^1.4.4",
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0",
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
     "typedi": "^0.10.0",
     "uuid": "^8.3.2"
   },

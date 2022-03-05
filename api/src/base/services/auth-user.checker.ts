@@ -4,7 +4,7 @@ import Container from 'typedi';
 import { UserService } from '../../user/services/user.service';
 
 // Check every api request has the authorization for specific request
-export const CurrentUserChecker = async (action: Action) => {
+export const AuthUserChecker = async (action: Action) => {
   try {
     const token = action.request.headers?.authorization;
     

@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="login-container">
+        <div class="card">
+            <div class="card-header">
+                <h3>Sign Up</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-danger" *ngIf="message" role="alert">
+                    {{message}}
+                </div>
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="name" class="form-control" id="name" formControlName="name"
+                            placeholder="Enter name">
+                        <ng-container *ngIf="signupForm?.controls?.name?.invalid &&
+                                                (signupForm?.controls?.name?.dirty ||
+                                                  signupForm?.controls?.name?.touched || isSubmitted)
+                                              ">
+                            <div class="invalid-feedback" *ngIf="signupForm?.controls?.name?.errors?.required"
+                                class="text-danger">
+                                Please enter name.
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email"
+                            placeholder="Enter email">
+                        <ng-container *ngIf="signupForm?.controls?.email?.invalid &&
+                                                (signupForm?.controls?.email?.dirty ||
+                                                  signupForm?.controls?.email?.touched || isSubmitted)
+                                              ">
+                            <div class="invalid-feedback" *ngIf="signupForm?.controls?.email?.errors?.required"
+                                class="text-danger">
+                                Please enter email address.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="signupForm?.controls?.email?.errors?.email"
+                                class="text-danger">
+                                Please enter a valid email address.
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">DOB</label>
+                        <input type="date" class="form-control" id="dob" formControlName="dob" placeholder="Enter dob">
+                        <ng-container *ngIf="signupForm?.controls?.dob?.invalid &&
+                                                (signupForm?.controls?.dob?.dirty ||
+                                                  signupForm?.controls?.dob?.touched || isSubmitted)
+                                              ">
+                            <div class="invalid-feedback" *ngIf="signupForm?.controls?.dob?.errors?.required"
+                                class="text-danger">
+                                Please enter DOB.
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" formControlName="password"
+                            placeholder="Password">
+                        <ng-container *ngIf="signupForm?.controls?.password?.invalid &&
+                                                                        (signupForm?.controls?.password?.dirty ||
+                                                                          signupForm?.controls?.password?.touched || isSubmitted)
+                                                                      ">
+                            <div class="invalid-feedback" *ngIf="signupForm?.controls?.password?.errors?.required"
+                                class="text-danger">
+                                Please enter password.
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="d-flex mt-4 justify-content-between">
+                        <a [routerLink]="[ '/signin']" class="btn text-primary">Login User</a>
+                        <button type="submit" class="btn btn-primary btn-block" [disabled]="isLoading">{{ isLoading ?
+                            'Loading...' : 'Sign In'</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
