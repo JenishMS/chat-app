@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 
@@ -8,6 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class AppService {
   userDetails:any;
+  newMessage$ = new Subject<any>();
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   async createUser(data: any): Promise<any> {
@@ -37,11 +39,10 @@ export class AppService {
   getUserDetailsFromToken() {
     if(!this.userDetails) {
       const isLoggedIn = this.authService.verifyUserLogin();
-    if (isLoggedIn) {
-      const token = this.authService.getDecodedToken();
-      this.userDetails = token;
+      if (isLoggedIn) {
+        const token = this.authService.getDecodedToken();
+        this.userDetails = token;
+      }
     }
-    }
-    
   }
 }

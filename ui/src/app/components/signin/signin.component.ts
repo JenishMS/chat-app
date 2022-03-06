@@ -23,6 +23,7 @@ export class SigninComponent implements OnInit {
     const isLoggedIn = this.authService.verifyUserLogin();
     if (isLoggedIn) {
       const token = this.authService.getDecodedToken();
+      this.appService.userDetails = token;
       this.router.navigateByUrl('/');
     }
   }
@@ -35,6 +36,8 @@ export class SigninComponent implements OnInit {
        this.isLoading = false;
       if(response.status) {
         this.authService.setToken(response.data.token);
+        const token = this.authService.getDecodedToken();
+      this.appService.userDetails = token;
         this.router.navigateByUrl('/');
       } else {
         this.message = response.message;

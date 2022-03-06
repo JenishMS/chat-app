@@ -61,7 +61,7 @@ export class ApiInterceptor implements HttpInterceptor {
   private handleError(err: HttpErrorResponse): Observable<any> {
     if (err.status === 401) {
       this.authService.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/signin']);
       return of(err.message);
     }
     return throwError(err);

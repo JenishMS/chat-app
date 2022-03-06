@@ -17,3 +17,19 @@
     font: 1.5rem;
     color: grey;
 }
+
+.online {
+    width: 0.5rem;
+    height: 0.5rem;
+    background-color: green;
+}
+
+.hasMsg {
+    padding: 0.1rem 0.3rem;
+    border-radius: 50%;
+    background-color: #dc3545;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: bold;
+    margin: 0 .2rem;
+}

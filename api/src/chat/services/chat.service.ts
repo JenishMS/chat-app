@@ -16,18 +16,18 @@ export class ChatService extends BaseService {
         try {
             let chats = await this.collection.find({
                 $or: [
-                    {
+                    {$and:[{
                         to: userId
                     },
                     {
                         from: user._id
-                    },
-                    {
+                    },]},
+                    {$and:[{
                         from: userId
                     },
                     {
                         to: user._id
-                    }
+                    }]}
                 ]
             }).toArray() ?? [];
             return this.success(chats, 'Success');
@@ -38,7 +38,9 @@ export class ChatService extends BaseService {
     
     async send(data: Partial<IChat>, user: IUser) {
         try {
-            let response: any = await this.create({...data,_id: uuidv4(), createdAt: new Date(), from: user._id});
+            const payload = {...data,_id: uuidv4(), createdAt: new Date(), from: user._id};
+            console.log(payload);
+            let response: any = await this.create(payload);
             if(response) {
                 let chat = await this.getById(response.insertedId);              
                 return this.success(chat, 'Success');

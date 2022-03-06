@@ -3,6 +3,7 @@
     <div class="chat-container">
         <div *ngFor="let item of chats" [ngClass]="[item.to === userId ? 'to': 'from']" class="chat-row to">
             <span class="">{{item.message}}</span>
+
         </div>
     </div>
     <div class="message-container mt-4">

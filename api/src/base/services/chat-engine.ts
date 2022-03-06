@@ -24,26 +24,26 @@ export async function chatEngine() {
 
     const onlineUsers: any = {};
   io.on("connection", (socket: Socket) => {      
-      socket.on(SocketEnum.I_AM_ONLINE, (userId: any) => {          
+      socket.on(SocketEnum.I_AM_ONLINE, (userId: any) => {  
           onlineUsers[userId] = socket.id;
-          console.log('I am Online', userId);
-          console.log(onlineUsers);
-          
-            socket.emit(SocketEnum.RECEIVE_MESSAGE, {userId}, { sent_to:  [onlineUsers[userId]]});
+          const filteredList = Object.keys(onlineUsers).filter((id: string) => id !== userId);    
+          socket.to(onlineUsers[userId]).emit(SocketEnum.ONLINE_USERS, filteredList, Object.keys(onlineUsers));          
         });
         
-        socket.on(SocketEnum.SEND_MESSAGE, (data: any) => {
-            console.log('Message received', onlineUsers);
-            
-            // if(data?.userId && onlineUsers[data.userId]) {
-            //     console.log('Message Sending to '+ data.userId);
-            //     socket.emit(SocketEnum.RECEIVE_MESSAGE, data.data, { sent_to:  [onlineUsers[data.userId]]});
-            // }
-            socket.emit(SocketEnum.RECEIVE_MESSAGE, data, { sent_to:  [onlineUsers[data.userId]]});
+        socket.on(SocketEnum.SEND_MESSAGE, (data: any) => {                        
+            if(onlineUsers[data.userId]) {
+                socket.to(onlineUsers[data.userId]).emit(SocketEnum.RECEIVE_MESSAGE,data, data.data);
+            }
         });
     
         socket.on(SocketEnum.I_AM_OFFLINE, (userId: any) => {
             delete onlineUsers[userId];
         });
+
+        socket.on("disconnect", () => {
+            console.log('Client disconnect', socket.id); // undefined
+        });
     });
+    io.on('disconnect', () => {
+      });
 }

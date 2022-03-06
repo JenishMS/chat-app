@@ -7,6 +7,7 @@
 .chat-container {
     display: flex;
     flex-direction: column;
+    padding: 0 .5rem;
     .chat-row {
         display: inline-flex;
         span {
@@ -15,19 +16,25 @@
             color: #fff;
             margin-top: 0.5rem;
             max-width: 80%;
+            word-wrap: break-word;
         }
         &.to {
-            justify-content: flex-start;
+            justify-content: flex-end;
             span{
-                background-color: rgb(204 204 204 / 92%);
-                color: #181717;
-            } }
-            &.from{ 
-                justify-content: flex-end;
-                span{
                 background-color: #0d6efd;
                 color: #fff;
+            } }
+            &.from{ 
+                justify-content: flex-start;
+                span{
+                    background-color: rgb(204 204 204 / 92%);
+                    color: #181717;
             }
         }
     }
+}
+
+.chat-container {
+    max-height: 40vh;
+    overflow-y: auto;
 }
